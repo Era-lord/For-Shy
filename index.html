@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>致未来的北大学子</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .pku-badge {
+            width: 80px;
+            height: 80px;
+            margin: 15px auto;
+            position: relative;
+            border-radius: 50%;
+            background: #94070A;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .pku-badge::before,
+        .pku-badge::after {
+            content: "";
+            position: absolute;
+            background: white;
+        }
+        
+        .pku-badge::before {
+            width: 30px;
+            height: 15px;
+            top: 25px;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(180deg);
+        }
+        
+        .pku-badge::after {
+            width: 20px;
+            height: 30px;
+            bottom: 20px;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            padding: 25px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        header:hover {
+            transform: rotateY(10deg);
+        }
+        
+        h1 {
+            color: #e74c3c;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #3498db;
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+        
+        .age-number {
+            font-size: 4em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .age-number::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #e74c3c, #3498db);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+        
+        .age-number:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .message:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pku-section {
+            background: rgba(241, 248, 255, 0.95);
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 15px 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pku-section::before {
+            content: "北大";
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 3em;
+            color: rgba(52, 152, 219, 0.1);
+            font-weight: bold;
+            z-index: 0;
+        }
+        
+        .countdown {
+            font-size: 1.1em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .wishes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .wish-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wish-card:nth-child(odd) {
+            transform: rotate(-2deg);
+        }
+        
+        .wish-card:nth-child(even) {
+            transform: rotate(2deg);
+        }
+        
+        .wish-card:hover {
+            transform: rotate(0) scale(1.05) !important;
+            z-index: 2;
+        }
+        
+        .wish-card h3 {
+            color: #3498db;
+            margin-top: 0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .wish-card p {
+            font-size: 0.9em;
+        }
+        
+        footer {
+            margin-top: 20px;
+            padding: 15px;
+            color: #777;
+            font-size: 0.85em;
+            text-align: center;
+        }
+        
+        .signature {
+            font-family: 'KaiTi', cursive;
+            font-size: 1.3em;
+            margin-top: 15px;
+            color: #e74c3c;
+            text-align: right;
+            transform: rotate(-2deg);
+            display: inline-block;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #e74c3c;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            outline: none;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background: #3498db;
+        }
+        
+        .hidden-message {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        
+        .show {
+            max-height: 200px;
+            padding: 10px;
+        }
+        
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(231, 76, 60, 0.5);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .foreground-particle {
+            position: fixed;
+            border-radius: 50%;
+            z-index: 100;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>生日快乐</h1>
+            <h2>Dear <span class="name-highlight">Shy</span></h2>
+            <div class="age-number">18</div>
+            <p>成年快乐 · 高考加油</p>
+        </header>
+        
+        <div class="message" id="mainMessage">
+            <p><span class="name-highlight">Shy</span>，三载暌违，恍如昨日(bushi</p>
+            <p>18岁，人生最美的年华，当以最闪耀的姿态迎接这一刻。</p>
+            <div class="hidden-message" id="hiddenPart1">
+                <p>走的时候一声不吭，我还以为你要让记忆遗忘你呢，好在人没那么决绝</p>
+            </div>
+        </div>
+        
+        <div class="pku-section">
+            <div class="pku-badge"></div>
+            <h2>致未来的北大学子</h2>
+            <p>北大是你的梦想，也是即将抵达的彼岸：</p>
+            <ul style="padding-left: 20px; position: relative; z-index: 1;">
+                <li>愿所有付出均有收获</li>
+                <li>愿雪海融成山脉</li>
+                <li>愿你能吸饱翠色奔向夏天</li>
+            </ul>
+            <div class="hidden-message" id="hiddenPart2">
+                <p style="margin-top: 10px;">愿未名湖畔终将留下你的身影，愿博雅塔下会有你的足迹！</p>
+            </div>
+            <div class="countdown" id="gaokaoCountdown"></div>
+        </div>
+        
+        <div class="wishes">
+            <div class="wish-card">
+                <h3>学业有成</h3>
+                <p>愿你在高考中超常发挥，金榜题名，圆梦北大！</p>
+            </div>
+            <div class="wish-card">
+                <h3>身体安康</h3>
+                <p>愿你在与世界对抗时，幸福安康，无病无灾。</p>
+            </div>
+            <div class="wish-card">
+                <h3>幸福长存</h3>
+                <p>愿无论未来走向何方，总有人是你的港湾。</p>
+            </div>
+            <div class="wish-card">
+                <h3>前程似锦</h3>
+                <p>愿你的未来如繁星璀璨，永不放弃前进！</p>
+            </div>
+        </div>
+        
+        <div class="message">
+            <p>今天，就暂时放下书本，好好享受吧！</p>
+            <p>高考只是人生的一站，无非权重占比多些而已，要永远在求索的路上前行！</p>
+            <div class="hidden-message" id="hiddenPart3">
+                <p style="margin-top: 10px;">期待在不久的将来，会出现那颗最闪亮的明星！</p>
+            </div>
+            <div class="signature">Yours：<br>Era</div>
+        </div>
+        
+        <footer>
+            <p>© 2025 所幸有你</p>
+        </footer>
+    </div>
+    
+    <!-- 纯色按钮 -->
+    <button class="floating-btn" id="magicBtn"></button>
+    
+    <script>
+        // 简化粒子效果
+        function createParticles() {
+            const colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71'];
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s linear infinite`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                
+                document.body.appendChild(particle);
+            }
+        }
+        
+        // 添加浮动动画
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes float {
+                0%, 100% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+                25% {
+                    transform: translate(10px, 10px) rotate(5deg);
+                }
+                50% {
+                    transform: translate(-5px, 15px) rotate(-5deg);
+                }
+                75% {
+                    transform: translate(5px, -5px) rotate(3deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 高考倒计时
+        function updateCountdown() {
+            const now = new Date();
+            const gaokaoDate = new Date(now.getFullYear(), 5, 7);
+            
+            if (now > gaokaoDate) {
+                gaokaoDate.setFullYear(gaokaoDate.getFullYear() + 1);
+            }
+            
+            const diff = gaokaoDate - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('gaokaoCountdown').innerHTML = 
+                `距离高考还有: <span style="font-size:1.3em;">${days}</span> 天`;
+        }
+        
+        // 创建前景彩色纸屑
+        function createForegroundConfetti() {
+            const colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'foreground-particle';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-20px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                
+                // 随机形状
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '0';
+                } else {
+                    confetti.style.borderRadius = '50%';
+                }
+                
+                // 随机旋转
+                const rotate = Math.random() * 360;
+                confetti.style.transform = `rotate(${rotate}deg)`;
+                
+                // 动画
+                const animationDuration = Math.random() * 2 + 1;
+                confetti.style.animation = `foreground-fall ${animationDuration}s linear forwards`;
+                
+                document.body.appendChild(confetti);
+                
+                // 移除元素
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration * 1000);
+            }
+            
+            // 添加前景下落动画
+            const fallStyle = document.createElement('style');
+            fallStyle.innerHTML = `
+                @keyframes foreground-fall {
+                    to {
+                        transform: translateY(100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(fallStyle);
+        }
+        
+        // 浮动按钮功能
+        document.getElementById('magicBtn').addEventListener('click', function() {
+            // 显示所有隐藏内容
+            document.querySelectorAll('.hidden-message').forEach(el => {
+                el.classList.add('show');
+            });
+            
+            // 添加粒子效果
+            createForegroundConfetti();
+            
+            // 按钮动画
+            this.style.transform = 'scale(1.5)';
+            this.style.backgroundColor = '#2ecc71';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+                this.style.backgroundColor = '#e74c3c';
+            }, 500);
+        });
+        
+        // 卡片点击效果
+        document.querySelectorAll('.wish-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2)';
+                setTimeout(() => {
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                }, 500);
+            });
+        });
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateCountdown();
+            
+            document.querySelectorAll('.name-highlight').forEach(el => {
+                el.textContent = 'Shy';
+                el.style.color = '#e74c3c';
+                el.style.fontWeight = 'bold';
+            });
+        });
+    </script>
+</body>
+</html>
